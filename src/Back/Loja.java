@@ -62,12 +62,25 @@ public class Loja {
         pedidosFinalizados.add(p);
     }
 
-    /*
     public long tempoMedio(){
-
+        long minutos = 0;
+        for (int i = 0; i < pedidosFinalizados.size(); i++) {
+            Pedido p = pedidosFinalizados.get(i);
+            minutos += p.tempoPreparoMinutos();
+        }
+        return minutos / pedidosFinalizados.size();
     }
-    */
 
-    //a porra dos cancelados tem q ir pros finalizados *emoji de palhaço*
+    public String relatorio(){
+        String str = "";
+
+        for (int i = 0; i < pedidosFinalizados.size(); i++) {
+            Pedido p = pedidosFinalizados.get(i);
+            //getDataInicio e muito sofrimento pra saber como q vai passar pra horario APENAS
+            str +=
+        }
+
+        return str;
+    }
 
 }

@@ -37,6 +37,9 @@ public class Pedido{
     public void setValor(Double valor){
         this.valor = valor;
     }
+    public LocalDateTime getDataInicioPedido(){
+        return this.dataInicioPedido;
+    }
 
     public void addSuco(){
         pedidos.add(new Produto("Suco de laranja da fruta", 4.0));
@@ -153,19 +156,13 @@ public class Pedido{
 
         }
 
-        cupom.setDesconto(this);
+        cupom.setDesconto(this); //possibiidades poderosas disso aqui não funcionar
         return "Pedido:\n" + str + "\nTotal a pagar R$ " + valor;
     }
-
-    //fazer metodo com preço e td(lista completa de pedidos ts2
 
     public long tempoPreparoMinutos(){
         Duration t = Duration.between(dataInicioPedido, dataFimPedido);
         return t.toMinutes();
     }
 
-    public long tempoPreparoSegundos(){
-        Duration t = Duration.between(dataInicioPedido, dataFimPedido);
-        return t.toSeconds();
-    }
 }

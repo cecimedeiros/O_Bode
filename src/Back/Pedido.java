@@ -11,7 +11,8 @@ public class Pedido{
     private LocalDateTime dataFimPedido;
     private Cliente cliente;
     private Status status;
-    //cu pom
+    private CupomIF cupom;
+    private Double valor;
 
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
@@ -21,6 +22,20 @@ public class Pedido{
 
     public String getCliente(){
         return cliente.getNome();
+    }
+
+    public void setCupom(){
+        if (contaItens() == 4){
+            this.cupom = new CupomPague3ELeve4Bode();
+        } else if (contaItens() >= 5){
+            this.cupom = new CupomItemMaisBaratoGratis();
+        } else {
+            this.cupom = new CupomSemDesconto();
+        }
+    }
+
+    public void setValor(Double valor){
+        this.valor = valor;
     }
 
     public void addSuco(){
@@ -96,6 +111,23 @@ public class Pedido{
         return pb;
     }
 
+    public Integer contaItens(){
+        return pedidos.size() + 1;
+    }
+
+    public Produto maisBarato(){
+        Produto mb = pedidos.get(0);
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getPreco() < mb.getPreco()){
+                mb = p;
+            }
+        }
+
+        return mb;
+    }
+
     @Override
     public String toString(){
         String str = "";
@@ -103,12 +135,29 @@ public class Pedido{
         for (int i = 0; i < pedidos.size(); i++) {
 
             Produto p = pedidos.get(i);
-            str += p.getNome() + "\n";
+            str += (i+1) + ". " + p.getNome() + "\n";
 
         }
 
-        return str + "\nTotal a pagar R$ " + ;
+        return str;
+
     }
+
+    public String PedidoFinal(){
+        String str = "";
+
+        for (int i = 0; i < pedidos.size(); i++) {
+
+            Produto p = pedidos.get(i);
+            str += (i+1) + ". " + p.getNome() + "\n";
+
+        }
+
+        cupom.setDesconto(this);
+        return "Pedido:\n" + str + "\nTotal a pagar R$ " + valor;
+    }
+
+    //fazer metodo com preço e td(lista completa de pedidos ts2
 
     public long tempoPreparoMinutos(){
         Duration t = Duration.between(dataInicioPedido, dataFimPedido);

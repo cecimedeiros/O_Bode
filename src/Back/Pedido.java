@@ -2,13 +2,17 @@ package Back;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Pedido{
 
+    DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm");
     private ArrayList <Produto> pedidos = new ArrayList<>();
     private LocalDateTime dataInicioPedido;
+    private String dataInicioPedidoStr;
     private LocalDateTime dataFimPedido;
+    private String dataFimPedidoStr;
     private Cliente cliente;
     private Status status;
     private CupomIF cupom;
@@ -17,6 +21,7 @@ public class Pedido{
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
         this.dataInicioPedido = LocalDateTime.now();
+        this.dataInicioPedidoStr = LocalDateTime.now().format(f);
         this.status = Status.AGUARDANDO_PREPARO;
     }
 
@@ -37,8 +42,10 @@ public class Pedido{
     public void setValor(Double valor){
         this.valor = valor;
     }
-    public LocalDateTime getDataInicioPedido(){
-        return this.dataInicioPedido;
+
+    public Double getValor(){
+        cupom.setDesconto(this);
+        return valor;
     }
 
     public void addSuco(){
@@ -81,6 +88,7 @@ public class Pedido{
         if (status == Status.AGUARDANDO_PREPARO){
             this.status = Status.CANCELADO_PELO_CLIENTE;
             this.dataFimPedido = LocalDateTime.now();
+            this.dataFimPedidoStr = LocalDateTime.now().format(f);
         }
     } // lembrar de adc aos finalizados na facade
 
@@ -94,6 +102,7 @@ public class Pedido{
         if (status == Status.EM_PREPARO){
             this.status = Status.ENTREGUE;
             this.dataFimPedido = LocalDateTime.now();
+            this.dataFimPedidoStr = LocalDateTime.now().format(f);
         }
     } // lembrar de adc aos finalizados na facade
 
@@ -146,7 +155,7 @@ public class Pedido{
 
     }
 
-    public String PedidoFinal(){
+    public String pedidoFinal(){
         String str = "";
 
         for (int i = 0; i < pedidos.size(); i++) {
@@ -157,7 +166,7 @@ public class Pedido{
         }
 
         cupom.setDesconto(this); //possibiidades poderosas disso aqui não funcionar
-        return "Pedido:\n" + str + "\nTotal a pagar R$ " + valor;
+        return "Pedido:\n" + str + "\nHorário da venda: " + dataInicioPedidoStr + "\nTotal a pagar R$ " + valor;
     }
 
     public long tempoPreparoMinutos(){

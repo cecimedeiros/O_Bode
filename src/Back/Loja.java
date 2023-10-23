@@ -71,14 +71,27 @@ public class Loja {
         return minutos / pedidosFinalizados.size();
     }
 
-    public String relatorio(){
+    public String relatorioVendas(){
         String str = "";
+        Double totalArrecadado = 0.0;
 
         for (int i = 0; i < pedidosFinalizados.size(); i++) {
             Pedido p = pedidosFinalizados.get(i);
-            //getDataInicio e muito sofrimento pra saber como q vai passar pra horario APENAS
-            str +=
+            str += p.pedidoFinal() + "\n";
+            totalArrecadado += p.getValor();
         }
+
+        str += "Total arrecadado do dia R$ " + totalArrecadado;
+
+        return str;
+    } //lembrar de guardar essa belezinha em arquivo. O nome do arquivo deve ser a data (vou ter q formatar dnv)
+    // Fazer um metodo fechaLoja() na Facade para isso
+    // a lista de vendas é limpa e fica então pronta para o dia seguinte após uso do método.
+
+    public String relatorioEstatisticas(){
+        String str = "";
+
+        
 
         return str;
     }

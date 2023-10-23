@@ -6,9 +6,10 @@ public class Loja {
 
     private static Integer SENHA = 0000;
     private ArrayList <Pedido> pedidosFinalizados = new ArrayList<>();
+    private ArrayList <Pedido> pedidosFinalizadosGeral = new ArrayList<>(); //aqui vai estar tudo + cancelados
     private ArrayList <Pedido> pedidosAguardandoPrep = new ArrayList<>();
     private ArrayList <Pedido> pedidosEmPrep = new ArrayList<>();
-
+    
     public String mostraFinalizados(){
         String str = "";
 
@@ -60,6 +61,7 @@ public class Loja {
         p.finalizaPedido();
         pedidosEmPrep.remove(p);
         pedidosFinalizados.add(p);
+        pedidosFinalizadosGeral.add(p);
     }
 
     public long tempoMedio(){
@@ -69,6 +71,18 @@ public class Loja {
             minutos += p.tempoPreparoMinutos();
         }
         return minutos / pedidosFinalizados.size();
+    }
+
+    public String pedidosEntreguesTempo(){
+        String str = "";
+
+        for (int i = 0; i < pedidosFinalizados.size(); i++) {
+            Pedido p = pedidosFinalizados.get(i);
+            str += p.pedidoFinal() + "Tempo de preparo " + p.tempoPreparoMinutos() + "m\n";
+        }
+
+        str += "Tempo médio de espera do dia: " + tempoMedio() + "m";
+        return str;
     }
 
     public String relatorioVendas(){
@@ -90,9 +104,29 @@ public class Loja {
 
     public String relatorioEstatisticas(){
         String str = "";
+        int nSucos = 0;
+        int nSalFrutas = 0;
+        int nTorrada = 0;
+        int nQueijo = 0;
+        int nBatata = 0;
+        int nBatataSuco = 0;
+        int nTorradaQueijoSuco = 0;
+        int nTorradaSuco = 0;
+        int nBatataQueijo = 0;
 
-        
-
+        for (int i = 0; i < pedidosFinalizados.size(); i++) {
+            Pedido p = pedidosFinalizados.get(i);
+            nSucos += p.numSuco();
+            nSalFrutas += p.numSalFrutas();
+            nTorrada += p.numTorrada();
+            nQueijo += p.numQueijo();
+            nBatata += p.numBatata();
+            nBatataSuco += p.numBatataSuco();
+            nTorradaQueijoSuco += p.numTorradaQueijoSuco();
+            nTorradaSuco += p.numTorradaSuco();
+            nBatataQueijo += p.numBatataQueijo();
+        }
+        //terminar essa bomba
         return str;
     }
 

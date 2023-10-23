@@ -174,4 +174,112 @@ public class Pedido{
         return t.toMinutes();
     }
 
+    public int numSuco(){
+        int n = 0;
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getNome().equals("Suco de laranja da fruta"));
+            n += 1;
+        }
+
+        return n;
+    }
+
+    public int numSalFrutas(){
+        int n = 0;
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getNome().equals("Salada de frutas"));
+            n += 1;
+        }
+
+        return n;
+    }
+
+    public int numTorrada(){
+        int n = 0;
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getNome().equals("Torrada de pão de forma"));
+            n += 1;
+        }
+
+        return n;
+    }
+
+    public int numQueijo(){
+        int n = 0;
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getNome().equals("Porção de queijo"));
+            n += 1;
+        }
+
+        return n;
+    }
+
+    public int numBatata(){
+        int n = 0;
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getNome().equals("Batata Frita"));
+            n += 1;
+        }
+
+        return n;
+    }
+
+    public int numBatataSuco(){
+        int n = 0;
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getNome().equals("Batata frita com suco"));
+            n += 1;
+        }
+
+        return n;
+    }
+
+    public int numTorradaQueijoSuco(){
+        int n = 0;
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getNome().equals("Torrada com queijo e suco"));
+            n += 1;
+        }
+
+        return n;
+    }
+
+    public int numTorradaSuco(){
+        int n = 0;
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getNome().equals("Torrada com suco"));
+            n += 1;
+        }
+
+        return n;
+    }
+
+    public int numBatataQueijo(){
+        int n = 0;
+
+        for (int i = 0; i < pedidos.size(); i++) {
+            Produto p = pedidos.get(i);
+            if (p.getNome().equals("Batata com queijo derretido"));
+            n += 1;
+        }
+
+        return n;
+    }
+
 }

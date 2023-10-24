@@ -9,7 +9,15 @@ public class Loja {
     private ArrayList <Pedido> pedidosFinalizadosGeral = new ArrayList<>(); //aqui vai estar tudo + cancelados
     private ArrayList <Pedido> pedidosAguardandoPrep = new ArrayList<>();
     private ArrayList <Pedido> pedidosEmPrep = new ArrayList<>();
-    
+
+    public boolean verificaSenha(Integer tentativa){
+        if (tentativa == this.SENHA){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String mostraFinalizados(){
         String str = "";
 
@@ -104,29 +112,9 @@ public class Loja {
 
     public String relatorioEstatisticas(){
         String str = "";
-        int nSucos = 0;
-        int nSalFrutas = 0;
-        int nTorrada = 0;
-        int nQueijo = 0;
-        int nBatata = 0;
-        int nBatataSuco = 0;
-        int nTorradaQueijoSuco = 0;
-        int nTorradaSuco = 0;
-        int nBatataQueijo = 0;
 
-        for (int i = 0; i < pedidosFinalizados.size(); i++) {
-            Pedido p = pedidosFinalizados.get(i);
-            nSucos += p.numSuco();
-            nSalFrutas += p.numSalFrutas();
-            nTorrada += p.numTorrada();
-            nQueijo += p.numQueijo();
-            nBatata += p.numBatata();
-            nBatataSuco += p.numBatataSuco();
-            nTorradaQueijoSuco += p.numTorradaQueijoSuco();
-            nTorradaSuco += p.numTorradaSuco();
-            nBatataQueijo += p.numBatataQueijo();
-        }
-        //terminar essa bomba
+
+
         return str;
     }
 

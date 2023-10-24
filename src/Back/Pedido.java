@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class Pedido{
 
     DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm");
-    private ArrayList <Produto> pedidos = new ArrayList<>();
+    private ArrayList <ProdutoDaLoja> pedidos = new ArrayList<>();
+    // mudei aqui
     private LocalDateTime dataInicioPedido;
     private String dataInicioPedidoStr;
     private LocalDateTime dataFimPedido;
@@ -48,40 +49,40 @@ public class Pedido{
         return valor;
     }
 
-    public void addSuco(){
-        pedidos.add(new Produto("Suco de laranja da fruta", 4.0));
+    public void addSuco(int qt){
+        pedidos.add(new Produto("Suco de laranja da fruta", 4.0, qt));
     }
 
-    public void addSalFrutas(){
-        pedidos.add(new Produto("Salada de frutas", 8.0));
+    public void addSalFrutas(int qt){
+        pedidos.add(new Produto("Salada de frutas", 8.0, qt));
     }
 
-    public void addTorrada(){
-        pedidos.add(new Produto("Torrada de pão de forma", 3.0));
+    public void addTorrada(int qt){
+        pedidos.add(new Produto("Torrada de pão de forma", 3.0, qt));
     }
 
-    public void addQueijo(){
-        pedidos.add(new Produto("Porção de queijo", 10.0));
+    public void addQueijo(int qt){
+        pedidos.add(new Produto("Porção de queijo", 10.0, qt));
     }
 
-    public void addBatata(){
-        pedidos.add(new Produto("Batata Frita", 12.0));
+    public void addBatata(int qt){
+        pedidos.add(new Produto("Batata Frita", 12.0, qt));
     }
 
-    public void addBatataSuco(){
-        pedidos.add(new Produto("Batata frita com suco", 14.0));
+    public void addBatataSuco(int qt){
+        pedidos.add(new Produto("Batata frita com suco", 14.0, qt));
     }
 
-    public void addTorradaQueijoSuco(){
-        pedidos.add(new Produto("Torrada com queijo e suco", 15.0));
+    public void addTorradaQueijoSuco(int qt){
+        pedidos.add(new Produto("Torrada com queijo e suco", 15.0, qt));
     }
 
-    public void addTorradaSuco(){
-        pedidos.add(new Produto("Torrada com suco", 5.0));
+    public void addTorradaSuco(int qt){
+        pedidos.add(new Produto("Torrada com suco", 5.0, qt));
     }
 
-    public void addBatataQueijo(){
-        pedidos.add(new Produto("Batata com queijo derretido", 20.0));
+    public void addBatataQueijo(int qt){
+        pedidos.add(new Produto("Batata com queijo derretido", 20.0, qt));
     }
 
     public void cancelarPedido(){
@@ -174,6 +175,7 @@ public class Pedido{
         return t.toMinutes();
     }
 
+    /*
     public int numSuco(){
         int n = 0;
 
@@ -281,5 +283,5 @@ public class Pedido{
 
         return n;
     }
-
+     */
 }

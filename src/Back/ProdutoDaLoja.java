@@ -1,5 +1,7 @@
 package Back;
 
+import java.util.ArrayList;
+
 public enum ProdutoDaLoja {
 
     BATATA_FRITA(8.0),
@@ -30,7 +32,7 @@ public enum ProdutoDaLoja {
         return ordinal();
     }
 
-    public int getQt(){
+    public Integer getQt(){
         return qt;
     }
 
@@ -44,6 +46,14 @@ public enum ProdutoDaLoja {
 
     public String getDescricao() {
         return toString();
+    }
+
+    public ArrayList ordena(){
+        ArrayList <ProdutoDaLoja> lista = new ArrayList<>();
+
+
+
+        return lista;
     }
 
 }

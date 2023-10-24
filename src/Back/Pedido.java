@@ -9,7 +9,6 @@ public class Pedido{
 
     DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm");
     private ArrayList <ProdutoDaLoja> pedidos = new ArrayList<>();
-    // mudei aqui
     private LocalDateTime dataInicioPedido;
     private String dataInicioPedidoStr;
     private LocalDateTime dataFimPedido;
@@ -49,40 +48,64 @@ public class Pedido{
         return valor;
     }
 
-    public void addSuco(int qt){
-        pedidos.add(new Produto("Suco de laranja da fruta", 4.0, qt));
+    public void addBatata(){
+        pedidos.add(ProdutoDaLoja.BATATA_FRITA);
+        ProdutoDaLoja.BATATA_FRITA.aumentaQt();
     }
 
-    public void addSalFrutas(int qt){
-        pedidos.add(new Produto("Salada de frutas", 8.0, qt));
+    public void addPastel(){
+        pedidos.add(ProdutoDaLoja.PASTEL);
+        ProdutoDaLoja.PASTEL.aumentaQt();
     }
 
-    public void addTorrada(int qt){
-        pedidos.add(new Produto("Torrada de pão de forma", 3.0, qt));
+    public void addChocolateAoLeite(){
+        pedidos.add(ProdutoDaLoja.CHOCOLATE_AO_LEITE);
+        ProdutoDaLoja.CHOCOLATE_AO_LEITE.aumentaQt();
     }
 
-    public void addQueijo(int qt){
-        pedidos.add(new Produto("Porção de queijo", 10.0, qt));
+    public void addAgua(){
+        pedidos.add(ProdutoDaLoja.AGUA);
+        ProdutoDaLoja.AGUA.aumentaQt();
     }
 
-    public void addBatata(int qt){
-        pedidos.add(new Produto("Batata Frita", 12.0, qt));
+    public void addRefrigerante(){
+        pedidos.add(ProdutoDaLoja.REFRIGERANTE);
+        ProdutoDaLoja.REFRIGERANTE.aumentaQt();
     }
 
-    public void addBatataSuco(int qt){
-        pedidos.add(new Produto("Batata frita com suco", 14.0, qt));
+    public void addPaoBola(){
+        pedidos.add(ProdutoDaLoja.PAO_BOLA);
+        ProdutoDaLoja.PAO_BOLA.aumentaQt();
     }
 
-    public void addTorradaQueijoSuco(int qt){
-        pedidos.add(new Produto("Torrada com queijo e suco", 15.0, qt));
+    public void addQueijo(){
+        pedidos.add(ProdutoDaLoja.PORCAO_DE_QUEIJO);
+        ProdutoDaLoja.PORCAO_DE_QUEIJO.aumentaQt();
     }
 
-    public void addTorradaSuco(int qt){
-        pedidos.add(new Produto("Torrada com suco", 5.0, qt));
+    public void addCarneHamburguer(){
+        pedidos.add(ProdutoDaLoja.CARNE_HAMBURGUER);
+        ProdutoDaLoja.CARNE_HAMBURGUER.aumentaQt();
     }
 
-    public void addBatataQueijo(int qt){
-        pedidos.add(new Produto("Batata com queijo derretido", 20.0, qt));
+    public void addBatataQueijo(){
+        pedidos.add(ProdutoDaLoja.BATATA_COM_QUEIJO);
+        ProdutoDaLoja.BATATA_COM_QUEIJO.aumentaQt();
+    }
+
+    public void addHamburguer(){
+        pedidos.add(ProdutoDaLoja.HAMBURGUER);
+        ProdutoDaLoja.HAMBURGUER.aumentaQt();
+    }
+
+    public void addPastelComRefrigerante(){
+        pedidos.add(ProdutoDaLoja.PASTEL_COM_REFRIGERANTE);
+        ProdutoDaLoja.PASTEL_COM_REFRIGERANTE.aumentaQt();
+    }
+
+    public void addChocolateComAgua(){
+        pedidos.add(ProdutoDaLoja.CHOCOLATE_COM_AGUA);
+        ProdutoDaLoja.CHOCOLATE_COM_AGUA.aumentaQt();
     }
 
     public void cancelarPedido(){
@@ -91,7 +114,7 @@ public class Pedido{
             this.dataFimPedido = LocalDateTime.now();
             this.dataFimPedidoStr = LocalDateTime.now().format(f);
         }
-    } // lembrar de adc aos finalizados na facade
+    } // lembrar de adc aos finalizadosGeral na facade
 
     public void prepararPedido(){
         if (status == Status.AGUARDANDO_PREPARO){
@@ -116,7 +139,7 @@ public class Pedido{
 
         for (int i = 0; i < pedidos.size(); i++) {
 
-            Produto p = pedidos.get(i);
+            ProdutoDaLoja p = pedidos.get(i);
             pb += p.getPreco();
 
         }
@@ -128,11 +151,11 @@ public class Pedido{
         return pedidos.size() + 1;
     }
 
-    public Produto maisBarato(){
-        Produto mb = pedidos.get(0);
+    public ProdutoDaLoja maisBarato(){
+        ProdutoDaLoja mb = pedidos.get(0);
 
         for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
+            ProdutoDaLoja p = pedidos.get(i);
             if (p.getPreco() < mb.getPreco()){
                 mb = p;
             }
@@ -147,8 +170,8 @@ public class Pedido{
 
         for (int i = 0; i < pedidos.size(); i++) {
 
-            Produto p = pedidos.get(i);
-            str += (i+1) + ". " + p.getNome() + "\n";
+            ProdutoDaLoja p = pedidos.get(i);
+            str += (i+1) + ". " + p.getDescricao() + "\n";
 
         }
 
@@ -161,8 +184,8 @@ public class Pedido{
 
         for (int i = 0; i < pedidos.size(); i++) {
 
-            Produto p = pedidos.get(i);
-            str += (i+1) + ". " + p.getNome() + "\n";
+            ProdutoDaLoja p = pedidos.get(i);
+            str += (i+1) + ". " + p.getDescricao() + "\n";
 
         }
 
@@ -175,113 +198,4 @@ public class Pedido{
         return t.toMinutes();
     }
 
-    /*
-    public int numSuco(){
-        int n = 0;
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
-            if (p.getNome().equals("Suco de laranja da fruta"));
-            n += 1;
-        }
-
-        return n;
-    }
-
-    public int numSalFrutas(){
-        int n = 0;
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
-            if (p.getNome().equals("Salada de frutas"));
-            n += 1;
-        }
-
-        return n;
-    }
-
-    public int numTorrada(){
-        int n = 0;
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
-            if (p.getNome().equals("Torrada de pão de forma"));
-            n += 1;
-        }
-
-        return n;
-    }
-
-    public int numQueijo(){
-        int n = 0;
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
-            if (p.getNome().equals("Porção de queijo"));
-            n += 1;
-        }
-
-        return n;
-    }
-
-    public int numBatata(){
-        int n = 0;
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
-            if (p.getNome().equals("Batata Frita"));
-            n += 1;
-        }
-
-        return n;
-    }
-
-    public int numBatataSuco(){
-        int n = 0;
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
-            if (p.getNome().equals("Batata frita com suco"));
-            n += 1;
-        }
-
-        return n;
-    }
-
-    public int numTorradaQueijoSuco(){
-        int n = 0;
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
-            if (p.getNome().equals("Torrada com queijo e suco"));
-            n += 1;
-        }
-
-        return n;
-    }
-
-    public int numTorradaSuco(){
-        int n = 0;
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
-            if (p.getNome().equals("Torrada com suco"));
-            n += 1;
-        }
-
-        return n;
-    }
-
-    public int numBatataQueijo(){
-        int n = 0;
-
-        for (int i = 0; i < pedidos.size(); i++) {
-            Produto p = pedidos.get(i);
-            if (p.getNome().equals("Batata com queijo derretido"));
-            n += 1;
-        }
-
-        return n;
-    }
-     */
 }

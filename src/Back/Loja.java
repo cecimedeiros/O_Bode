@@ -112,6 +112,7 @@ public class Loja {
 
     public String relatorioEstatisticas(){
         String str = "";
+        ArrayList <ProdutoDaLoja> lista = new ArrayList<>();
 
 
 

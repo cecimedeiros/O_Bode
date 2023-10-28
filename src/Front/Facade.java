@@ -45,4 +45,36 @@ public class Facade {
         return l.verificaSenha(senha);
     }
 
+    public String relatorioVendas(){
+        return l.relatorioVendas();
+    }
+
+    public String relatorioTempo(){
+        return l.pedidosEntreguesTempo();
+    }
+
+    public String relatorioEstatisticas(){
+        return l.relatorioEstatisticas();
+    }
+
+    public String pedidosAguardandoPrep(){
+        return l.mostraAguardandoPrep();
+    }
+
+    public String pedidosEmPrep(){
+        return l.mostraEmPrep();
+    }
+
+    public void preparaPedido(int i){
+        l.preparar(i);
+    }
+
+    public void entregaPedido(int i){
+        l.entregar(i);
+    }
+
+    public void aplicaCupom(){
+        p.setCupom();
+    }
+
 }

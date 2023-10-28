@@ -146,7 +146,6 @@ public class Pedido{
 
         }
 
-        cupom.setDesconto(this);
         str += "\nHorário da venda: " + dataInicioPedidoStr + "\nTotal a pagar R$ " + valor;
         if (this.cupom instanceof CupomSemDesconto){
             str += "\nNenhum cupom pode ser aplicado";

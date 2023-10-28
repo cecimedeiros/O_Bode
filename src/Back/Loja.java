@@ -1,6 +1,6 @@
 package Back;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Loja {
 
@@ -72,6 +72,14 @@ public class Loja {
         pedidosFinalizadosGeral.add(p);
     }
 
+    public void cancelar(Pedido p){
+        pedidosFinalizadosGeral.add(p);
+    }
+
+    public void aguardaPreparo(Pedido p){
+        pedidosAguardandoPrep.add(p);
+    }
+
     public long tempoMedio(){
         long minutos = 0;
         for (int i = 0; i < pedidosFinalizados.size(); i++) {
@@ -112,9 +120,52 @@ public class Loja {
 
     public String relatorioEstatisticas(){
         String str = "";
-        ArrayList <ProdutoDaLoja> lista = new ArrayList<>();
 
+        List<ProdutoDaLoja> lista;
+        lista = Arrays.stream(ProdutoDaLoja.values()).toList();
+        ArrayList <ProdutoDaLoja> ordenada = new ArrayList<>();
+        for (ProdutoDaLoja p: lista) {
+            ordenada.add(p);
+        }
+        Comparator<ProdutoDaLoja> comp = Comparator.comparing(ProdutoDaLoja::getQt).reversed();
+        Collections.sort(ordenada, comp);
 
+        for (ProdutoDaLoja p : ordenada) {
+
+            if(p.getQt() > 0) {
+                str += "Produto: " + p.getDescricao() + " - vendas: " + p.getQt() + "\n";
+            } else {
+                str += "Produto: " + p.getDescricao() + " - NÃO VENDEU\n";
+            }
+
+        }
+
+        return str;
+    }
+
+    public void fechaLoja(){
+        List<ProdutoDaLoja> lista;
+        lista = Arrays.stream(ProdutoDaLoja.values()).toList();
+
+        for (ProdutoDaLoja p: lista) {
+            p.zeraQt();
+        }
+
+        pedidosFinalizados.clear();
+        pedidosFinalizadosGeral.clear();
+        pedidosEmPrep.clear();
+        pedidosAguardandoPrep.clear();
+
+    }
+
+    public String mostraCardapio(){
+        String str = "";
+
+        List<ProdutoDaLoja> lista;
+        lista = Arrays.stream(ProdutoDaLoja.values()).toList();
+        for (ProdutoDaLoja p: lista) {
+            str += (p.getCodigo() + 1) + " " + p.getDescricao() + " - R$" + p.getPreco() + "\n";
+        }
 
         return str;
     }

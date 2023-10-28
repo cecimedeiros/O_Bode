@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Pedido{
 
@@ -48,73 +50,26 @@ public class Pedido{
         return valor;
     }
 
-    public void addBatata(){
-        pedidos.add(ProdutoDaLoja.BATATA_FRITA);
-        ProdutoDaLoja.BATATA_FRITA.aumentaQt();
+    public void addItem(int i){
+        List<ProdutoDaLoja> lista;
+        lista = Arrays.stream(ProdutoDaLoja.values()).toList();
+        ProdutoDaLoja p = lista.get(i -1);
+        p.aumentaQt();
+        pedidos.add(p);
     }
 
-    public void addPastel(){
-        pedidos.add(ProdutoDaLoja.PASTEL);
-        ProdutoDaLoja.PASTEL.aumentaQt();
-    }
-
-    public void addChocolateAoLeite(){
-        pedidos.add(ProdutoDaLoja.CHOCOLATE_AO_LEITE);
-        ProdutoDaLoja.CHOCOLATE_AO_LEITE.aumentaQt();
-    }
-
-    public void addAgua(){
-        pedidos.add(ProdutoDaLoja.AGUA);
-        ProdutoDaLoja.AGUA.aumentaQt();
-    }
-
-    public void addRefrigerante(){
-        pedidos.add(ProdutoDaLoja.REFRIGERANTE);
-        ProdutoDaLoja.REFRIGERANTE.aumentaQt();
-    }
-
-    public void addPaoBola(){
-        pedidos.add(ProdutoDaLoja.PAO_BOLA);
-        ProdutoDaLoja.PAO_BOLA.aumentaQt();
-    }
-
-    public void addQueijo(){
-        pedidos.add(ProdutoDaLoja.PORCAO_DE_QUEIJO);
-        ProdutoDaLoja.PORCAO_DE_QUEIJO.aumentaQt();
-    }
-
-    public void addCarneHamburguer(){
-        pedidos.add(ProdutoDaLoja.CARNE_HAMBURGUER);
-        ProdutoDaLoja.CARNE_HAMBURGUER.aumentaQt();
-    }
-
-    public void addBatataQueijo(){
-        pedidos.add(ProdutoDaLoja.BATATA_COM_QUEIJO);
-        ProdutoDaLoja.BATATA_COM_QUEIJO.aumentaQt();
-    }
-
-    public void addHamburguer(){
-        pedidos.add(ProdutoDaLoja.HAMBURGUER);
-        ProdutoDaLoja.HAMBURGUER.aumentaQt();
-    }
-
-    public void addPastelComRefrigerante(){
-        pedidos.add(ProdutoDaLoja.PASTEL_COM_REFRIGERANTE);
-        ProdutoDaLoja.PASTEL_COM_REFRIGERANTE.aumentaQt();
-    }
-
-    public void addChocolateComAgua(){
-        pedidos.add(ProdutoDaLoja.CHOCOLATE_COM_AGUA);
-        ProdutoDaLoja.CHOCOLATE_COM_AGUA.aumentaQt();
-    }
-
-    public void cancelarPedido(){
+    public void cancelarPedido(Loja l){
         if (status == Status.AGUARDANDO_PREPARO){
             this.status = Status.CANCELADO_PELO_CLIENTE;
             this.dataFimPedido = LocalDateTime.now();
             this.dataFimPedidoStr = LocalDateTime.now().format(f);
+            l.cancelar(this);
         }
     } // lembrar de adc aos finalizadosGeral na facade
+
+    public void finalizaMontagemDoPedido(Loja l){
+        l.aguardaPreparo(this);
+    }
 
     public void prepararPedido(){
         if (status == Status.AGUARDANDO_PREPARO){
@@ -131,7 +86,9 @@ public class Pedido{
     } // lembrar de adc aos finalizados na facade
 
     public void removerItem(int i){
-        pedidos.remove(i - 1);
+        ProdutoDaLoja p = pedidos.get(i - 1);
+        p.diminuiQt();
+        pedidos.remove(p);
     }
 
     public Double calculaPrecoBruto(){
@@ -180,7 +137,7 @@ public class Pedido{
     }
 
     public String pedidoFinal(){
-        String str = "";
+        String str = "Pedido:\n";
 
         for (int i = 0; i < pedidos.size(); i++) {
 
@@ -189,8 +146,16 @@ public class Pedido{
 
         }
 
-        cupom.setDesconto(this); //possibiidades poderosas disso aqui não funcionar
-        return "Pedido:\n" + str + "\nHorário da venda: " + dataInicioPedidoStr + "\nTotal a pagar R$ " + valor;
+        cupom.setDesconto(this);
+        str += "\nHorário da venda: " + dataInicioPedidoStr + "\nTotal a pagar R$ " + valor;
+        if (this.cupom instanceof CupomSemDesconto){
+            str += "\nNenhum cupom pode ser aplicado";
+        } else if (this.cupom instanceof CupomItemMaisBaratoGratis) {
+            str += "\nCupom 'Item mais barato gratis' aplicado";
+        } else {
+            str += "\nCupom 'Pague 3 leve 4' aplicado";
+        }
+        return str;
     }
 
     public long tempoPreparoMinutos(){

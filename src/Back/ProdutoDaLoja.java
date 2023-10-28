@@ -40,20 +40,16 @@ public enum ProdutoDaLoja {
         qt += 1;
     }
 
+    public void diminuiQt(){
+        qt -= 1;
+    }
+
     public void zeraQt(){
         qt = 0;
     }
 
     public String getDescricao() {
         return toString();
-    }
-
-    public ArrayList ordena(){
-        ArrayList <ProdutoDaLoja> lista = new ArrayList<>();
-
-
-
-        return lista;
     }
 
 }

@@ -194,6 +194,10 @@ public class Main {
             } while (!parada);
         } catch (IOException e){
             System.out.println("Erro: " + e.getMessage());
+        } catch (IllegalArgumentException e){
+            System.out.println("Erro: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 }

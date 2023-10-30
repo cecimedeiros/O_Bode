@@ -37,7 +37,7 @@ public class Loja {
         for (int i = 0; i < pedidosAguardandoPrep.size(); i++) {
 
             Pedido p = pedidosAguardandoPrep.get(i);
-            str += "Prioridade: " + i + 1 + "\n" + p.toString() + "\n";
+            str += "Prioridade: " + (i + 1) + "\n" + p.toString() + "\n";
 
         }
 
@@ -45,12 +45,12 @@ public class Loja {
     }
 
     public String mostraEmPrep(){
-        String str = "Ordem:\n";
+        String str = "";
 
         for (int i = 0; i < pedidosEmPrep.size(); i++) {
 
             Pedido p = pedidosEmPrep.get(i);
-            str += i + 1 + "\n" + p.toString() + "\n";
+            str += "Prioridade: " + (i + 1) + "\n" + p.toString() + "\n";
 
         }
 
@@ -94,7 +94,7 @@ public class Loja {
 
         for (int i = 0; i < pedidosFinalizados.size(); i++) {
             Pedido p = pedidosFinalizados.get(i);
-            str += p.pedidoFinal() + "Tempo de preparo " + p.tempoPreparoMinutos() + "m\n";
+            str += p.pedidoFinal() + "\nTempo de preparo " + p.tempoPreparoMinutos() + "m\n";
         }
 
         str += "Tempo médio de espera do dia: " + tempoMedio() + "m";

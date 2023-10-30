@@ -77,4 +77,7 @@ public class Facade {
         p.setCupom();
     }
 
+    public void encerraAtendimento(){
+        l.fechaLoja();
+    }
 }

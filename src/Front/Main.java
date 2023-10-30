@@ -3,6 +3,7 @@ package Front;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
@@ -25,12 +26,15 @@ public class Main {
         try (sc; bw){
             do {
 
+                parada = false;
                 System.out.println("Selecione como deseja acessar o sistema:\n1.Cliente\n2.Funcionário");
                 int e = Integer.parseInt(sc.nextLine());
 
                 if (e == 1) { //Cliente
 
                     do {
+
+                        parada2 = false;
                         System.out.println("Menu cliente");
                         System.out.println("1.Iniciar pedido\n2.Voltar");
                         int e2 = Integer.parseInt(sc.nextLine());
@@ -48,6 +52,7 @@ public class Main {
                             f.adicionaItemAoPedido(codPedido);
 
                             do {
+                                parada3 = false;
                                 System.out.println("Deseja adicionar mais itens?\n1.Sim\n2.Finalizar pedido\n3.Remoção de item\n4.Cancelar pedido");
                                 int e3 = Integer.parseInt(sc.nextLine());
 
@@ -66,6 +71,7 @@ public class Main {
                                         f.finalizaMontagemPedido();
                                         System.out.println("Pedido finalizado com sucesso!");
                                         parada2 = true;
+                                        parada3 = true;
                                     }
 
                                 } else if (e3 == 3) {
@@ -86,6 +92,7 @@ public class Main {
                                     if (conf == 1) {
                                         f.cancelaPedido();
                                         System.out.println("Pedido cancelado com sucesso!");
+                                        parada3 = true;
                                         parada2 = true;
                                     }
 
@@ -93,7 +100,7 @@ public class Main {
                                     System.out.println("Opção inválida. Tente novamente!");
                                 }
 
-                            } while (!parada2);
+                            } while (!parada3);
 
 
                         } else if (e2 == 2) { //Voltar
@@ -113,6 +120,7 @@ public class Main {
                     if (f.verificaSenha(senha)) {
 
                         do {
+                            parada4 = false;
                             System.out.println("Menu funcionário");
                             System.out.println("1.Realizar serviços\n2.Solicitar relatório\n3.Encerrar atendimento do dia\nQualquer outro número para voltar");
                             int o = Integer.parseInt(sc.nextLine());
@@ -160,15 +168,16 @@ public class Main {
                                 } while (!parada5);
 
                             } else if (o == 3) {
-                                //mizeras
                                 String[] linhas = new String[] {f.relatorioVendas(), f.relatorioTempo(), f.relatorioEstatisticas()};
+                                bw.write(String.valueOf(LocalDateTime.now()));
+                                bw.newLine();
                                 for (String linha: linhas) {
                                     bw.write(linha);
                                     bw.newLine();
                                 }
+                                f.encerraAtendimento();
                                 parada4 = true;
                                 parada = true;
-                                //arquivos tudo dando errado
                             } else {
                                 parada4 = true;
                             }

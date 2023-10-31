@@ -3,6 +3,7 @@ package Front;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -169,7 +170,8 @@ public class Main {
 
                             } else if (o == 3) {
                                 String[] linhas = new String[] {f.relatorioVendas(), f.relatorioTempo(), f.relatorioEstatisticas()};
-                                bw.write(String.valueOf(LocalDateTime.now()));
+
+                                bw.write(String.valueOf(LocalDate.now()));
                                 bw.newLine();
                                 for (String linha: linhas) {
                                     bw.write(linha);
@@ -189,14 +191,9 @@ public class Main {
 
                 } else { //erro
                     System.out.println("Opção inválida. Tente novamente!");
-                    System.out.println();
                 }
             } while (!parada);
-        } catch (IOException e){
-            System.out.println("Erro: " + e.getMessage());
-        } catch (IllegalArgumentException e){
-            System.out.println("Erro: " + e.getMessage());
-        } catch (IndexOutOfBoundsException e){
+        } catch (IOException | IllegalArgumentException | IndexOutOfBoundsException e){
             System.out.println("Erro: " + e.getMessage());
         }
     }

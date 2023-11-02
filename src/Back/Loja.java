@@ -114,9 +114,7 @@ public class Loja {
         str += "Total arrecadado do dia R$ " + totalArrecadado;
 
         return str;
-    } //lembrar de guardar essa belezinha em arquivo. O nome do arquivo deve ser a data (vou ter q formatar dnv)
-    // Fazer um metodo fechaLoja() na Facade para isso
-    // a lista de vendas é limpa e fica então pronta para o dia seguinte após uso do método.
+    }
 
     public String relatorioEstatisticas(){
         String str = "";

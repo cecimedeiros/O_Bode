@@ -65,7 +65,7 @@ public class Pedido{
             this.dataFimPedidoStr = LocalDateTime.now().format(f);
             l.cancelar(this);
         }
-    } // lembrar de adc aos finalizadosGeral na facade
+    }
 
     public void finalizaMontagemDoPedido(Loja l){
         l.aguardaPreparo(this);
@@ -75,7 +75,7 @@ public class Pedido{
         if (status == Status.AGUARDANDO_PREPARO){
             status = Status.EM_PREPARO;
         }
-    } // lembrar de adc aos em andamento na facade
+    }
 
     public void finalizaPedido(){
         if (status == Status.EM_PREPARO){
@@ -83,7 +83,7 @@ public class Pedido{
             this.dataFimPedido = LocalDateTime.now();
             this.dataFimPedidoStr = LocalDateTime.now().format(f);
         }
-    } // lembrar de adc aos finalizados na facade
+    }
 
     public void removerItem(int i){
         ProdutoDaLoja p = pedidos.get(i - 1);

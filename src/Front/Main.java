@@ -3,8 +3,11 @@ package Front;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -129,6 +132,7 @@ public class Main {
                             if (o == 1) {
 
                                 do {
+                                    parada6 = false;
                                     System.out.println("Informe o serviço que deseja realizar:");
                                     System.out.println("1.Preparar pedido\n2.Entregar pedido\nQualquer outro número para voltar");
 
@@ -153,6 +157,7 @@ public class Main {
                             } else if (o == 2) {
 
                                 do {
+                                    parada5 = false;
                                     System.out.println("Informe relatório a solicitar:");
                                     System.out.println("1.Relatório de vendas\n2.Relatório de tempo\n3.Relatório com estatística\nQualquer outro número para voltar");
 
@@ -171,7 +176,10 @@ public class Main {
                             } else if (o == 3) {
                                 String[] linhas = new String[] {f.relatorioVendas(), f.relatorioTempo(), f.relatorioEstatisticas()};
 
-                                bw.write(String.valueOf(LocalDate.now()));
+                                Calendar c = Calendar.getInstance();
+                                Date d = c.getTime();
+                                DateFormat fmt = DateFormat.getDateInstance(DateFormat.SHORT);
+                                bw.write("Data: " + fmt.format(d));
                                 bw.newLine();
                                 for (String linha: linhas) {
                                     bw.write(linha);

@@ -163,6 +163,7 @@ public class Main {
 
                                     o = Integer.parseInt(sc.nextLine());
                                     if (o == 1) {
+                                        f.relatorioVendas();
                                         System.out.println(f.relatorioVendas());
                                     } else if (o == 2) {
                                         System.out.println(f.relatorioTempo());

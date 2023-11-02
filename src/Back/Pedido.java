@@ -147,7 +147,7 @@ public class Pedido{
         }
 
         this.setCupom();
-        str += "\nHorário da venda: " + dataInicioPedidoStr + "\nTotal a pagar R$ " + valor;
+        str += "\nHorário da venda: " + dataInicioPedidoStr + "\nTotal a pagar R$ " + this.valor;
         if (this.cupom instanceof CupomSemDesconto){
             str += "\nNenhum cupom pode ser aplicado";
         } else if (this.cupom instanceof CupomItemMaisBaratoGratis) {
